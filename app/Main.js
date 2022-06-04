@@ -8,6 +8,11 @@ import Home from './components/Home';
 import Footer from './components/Footer';
 import About from './components/About';
 import Terms from './components/Terms';
+import CreatePost from './components/CreatePost';
+import SinglePost from './components/SinglePost';
+import Axios from 'axios';
+Axios.defaults.baseURL="http://localhost:8080";
+
 
 function App() {
 	const [loggedin, setLoggedIn] = useState(Boolean(localStorage.getItem('ReactAppToken')));
@@ -18,14 +23,16 @@ function App() {
 			<Routes>
 				<Route path='/' element={loggedin ? <Home /> : <HomeGuest />} />
 				<Route path='/about-us' element={<About />} />
+				<Route path='/create-post' element={<CreatePost />} />
 				<Route path='/terms' element={<Terms />} />
+				<Route path='/post:id' element={<SinglePost />} />
 			</Routes>
 			<Footer />
 		</BrowserRouter>
 	);
 }
 
-// mongodb+srv://kemalaydik:b31b6b84@cluster0.kijpk.mongodb.net/?retryWrites=true&w=majority
+
 
 const root = ReactDOM.createRoot(document.getElementById('app'));
 root.render(<App />);
