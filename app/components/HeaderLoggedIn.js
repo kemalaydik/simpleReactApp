@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
-import {Link} from "react-router-dom"
+import {Link,useNavigate} from "react-router-dom"
 
 function HeaderLoggedin(props) {
+	const navigate=useNavigate();
 	function handleLogout () {
 		props.setLoggedIn(false);
 		localStorage.removeItem("ReactAppToken");
 		localStorage.removeItem("ReactAppAvatar");
 		localStorage.removeItem("ReactAppUsername");
+		navigate("/");
+
 	}
 	return (
 		<div className='flex-row my-3 my-md-0'>

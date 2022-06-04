@@ -1,15 +1,17 @@
 import React, { useEffect,useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import Page from './Page'
 
 function CreatePost() {
   const [title,setTitle]=useState();
   const [body,setBody]=useState();
+	const navigate = useNavigate();
   async function handleSubmit (e) {
     e.preventDefault();
     try {
-        const response=await Axios.post("/create-post",{title,body,token:localStorage.getItem("ReactAppToken")})
-        console.log(response.data);
+        const response=await Axios.post("/create-post",{title,body,token:localStorage.getItem("ReactAppToken")});
+				navigate("/post/"+response.data);
         
       } catch (error) {
         await console.log(error.response.data);

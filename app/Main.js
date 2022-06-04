@@ -9,7 +9,8 @@ import Footer from './components/Footer';
 import About from './components/About';
 import Terms from './components/Terms';
 import CreatePost from './components/CreatePost';
-import SinglePost from './components/SinglePost';
+import ViewSinglePost from './components/ViewSinglePost';
+import FlashMessages from './components/FlashMessages';
 import Axios from 'axios';
 Axios.defaults.baseURL="http://localhost:8080";
 
@@ -20,12 +21,13 @@ function App() {
 	return (
 		<BrowserRouter>
 			<Header loggedin={loggedin} setLoggedIn={setLoggedIn} />
+			<FlashMessages/>
 			<Routes>
 				<Route path='/' element={loggedin ? <Home /> : <HomeGuest />} />
 				<Route path='/about-us' element={<About />} />
 				<Route path='/create-post' element={<CreatePost />} />
 				<Route path='/terms' element={<Terms />} />
-				<Route path='/post:id' element={<SinglePost />} />
+				<Route path='/post/:id' element={<ViewSinglePost />} />
 			</Routes>
 			<Footer />
 		</BrowserRouter>
