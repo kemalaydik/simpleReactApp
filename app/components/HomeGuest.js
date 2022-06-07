@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import Axios from 'axios';
 import Page from './Page';
+import DispatchContext from '../DispatchContext';
 
 function HomeGuest() {
 	const [username, setUsername] = useState();
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
+	const appDispatch = useContext(DispatchContext);
 
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
 			await Axios.post('/register', { username, email, password });
 			console.log('user created succesfully');
+			appDispatch({ type: 'flashMessages',value:"User created succesfully"})
+			
 		} catch (error) {
-			await console.log(error.response.data);
+			console.log(error.response.data);
 		}
 	}
 	return (

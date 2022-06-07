@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 
-function FlashMessages(){
-  return (
-    <div className="floating-alerts">
-      <div className="alert alert-success text-center shadow-sm floating-alert">
-        Hey There
-      </div>
-    
-    </div>
-  )
+function FlashMessages(props) {
+	return (
+		<div className='floating-alerts'>
+			{props.messages.map((el, i) => {
+				return (
+					<div key={i} className='alert alert-success text-center shadow-sm floating-alert'>
+						{el}
+					</div>
+				);
+			})}
+		</div>
+	);
 }
 
-export default FlashMessages
+export default FlashMessages;

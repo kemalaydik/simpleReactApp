@@ -1,22 +1,17 @@
-import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useState, useContext, Fragment } from 'react';
 import HeaderLoggedOut from './HeaderLoggedOut';
-import HeaderLoggedin from "./HeaderLoggedIn";
+import HeaderLoggedin from './HeaderLoggedIn';
+import StateContext from '../StateContext';
 
-function Header(props) {
+function Header() {
+	const appState = useContext(StateContext);
 	return (
-		<>
-			<header className='header-bar bg-primary mb-3'>
-				<div className='container d-flex flex-column flex-md-row align-items-center p-3'>
-					<h4 className='my-0 mr-md-auto font-weight-normal'>
-						<a href='/' className='text-white'>
-							ComplexApp
-						</a>
-					</h4>
-					{props.loggedin ? <HeaderLoggedin setLoggedIn={props.setLoggedIn} /> : <HeaderLoggedOut setLoggedIn={props.setLoggedIn} />}
-				</div>
-			</header>
-		</>
+		<div className='w-100 px-2 sm:px-4 lg:px-8 bg-gray-800 items-center flex h-20 justify-between'>
+			<a href="/">
+			<img className='block h-8 w-auto' src='../img/Artboard1@2x.png' alt='logo' />
+			</a>
+			<div className='flex-1 max-w-2xl'>{appState.loggedin ? <HeaderLoggedin /> : <HeaderLoggedOut />}</div>
+		</div>
 	);
 }
 
