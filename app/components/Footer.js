@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
 	return (
-		<footer className='p-4 md:px-6 md:py-8 bg-gray-800'>
+		<footer className='p-4 md:px-6 md:py-8 bg-gray-800 mt-auto'>
 			<div className='sm:flex sm:items-center sm:justify-between'>
 				<a href='https://github.com/kemalaydik' className='flex items-center mb-4 sm:mb-0'>
 					<img src='../img/Artboard1@2x.png' className='mr-3 h-8' alt='Kemal aydık logo' />

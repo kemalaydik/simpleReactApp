@@ -1,17 +1,25 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-function FlashMessages(props) {
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const FlashMessages = React.memo(props => {
+	const config = {
+		position: 'bottom-right',
+		autoClose: 5000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+		theme: 'dark'
+	};
+	toast.success(props.messages[props.messages.length - 1], config);
 	return (
-		<div className='floating-alerts'>
-			{props.messages.map((el, i) => {
-				return (
-					<div key={i} className='alert alert-success text-center shadow-sm floating-alert'>
-						{el}
-					</div>
-				);
-			})}
+		<div>
+			<ToastContainer />
 		</div>
 	);
-}
+});
 
 export default FlashMessages;

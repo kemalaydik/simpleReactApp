@@ -9,7 +9,6 @@ function HeaderLoggedOut() {
 	const [password, setPassword] = useState();
 
 	async function handleSubmit(e) {
-		console.log(3);
 		e.preventDefault();
 		try {
 			const response = await Axios.post('/login', { username, password });

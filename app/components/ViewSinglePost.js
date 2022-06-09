@@ -1,44 +1,67 @@
-import React, { useEffect } from 'react';
-import Page from "./Page";
+import React, { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import Axios from 'axios';
+import Spinner from './Spinner';
+import Page from './Page';
+import { TrashIcon } from '@heroicons/react/outline';
+import { PencilAltIcon } from '@heroicons/react/outline';
 
-function ViewSinglePost() {
-
+export default function ViewSinglePost() {
+	const { id } = useParams();
+	const [isLoading, setIsLoading] = useState(true);
+	const [post, setPost] = useState({
+		author: {
+			username: '',
+			avatar: 'https://gravitar.com/avatar/placeholder?s=128'
+		},
+		body: '',
+		title: '',
+		createdDate: ''
+	});
+	useEffect(() => {
+		const request = Axios.CancelToken.source();
+		(async function () {
+			try {
+				const response = await Axios.get('/post/' + id, { cancelToken: request.token });
+				setPost(response.data);
+				setIsLoading(false);
+			} catch (error) {
+				console.log(error);
+			}
+			return () => {
+				request.cancel();
+			};
+		})();
+	}, []);
+	const {
+		author: { username, avatar },
+		body,
+		title,
+		createdDate
+	} = post;
+	const formattedDate = new Date(createdDate).toLocaleDateString();
+	if (isLoading) return <Spinner />;
 	return (
-		<Page title="Post">
-		<div className='container container--narrow py-md-5'>
-			<div className='d-flex justify-content-between'>
-				<h2>Example Post Title</h2>
-				<span className='pt-2'>
-					<a href='#' className='text-primary mr-2' title='Edit'>
-						<i className='fas fa-edit'></i>
-					</a>
-					<a className='delete-post-button text-danger' title='Delete'>
-						<i className='fas fa-trash'></i>
-					</a>
-				</span>
+		<Page title={title}>
+			<div className='bg-gray-100 px-4 py-5 sm:px-6 w-3/4 mx-auto rounded shadow'>
+				<div className='flex items-center mb-3'>
+					<h2 className='text-xl'>{title}</h2>
+					<PencilAltIcon width='20' className='ml-auto fill-blue-600 hover:fill-blue-800' role='button' />
+					<TrashIcon width='20' className='hover:fill-gray-400' role='button' />
+				</div>
+				<div className='flex space-x-3'>
+					<Link to={'/profile/' + username}>
+						<img className='h-10 w-10 rounded-full hover:ring-2 ring-blue' src={avatar} alt='avatar' />
+					</Link>
+					<div className='min-w-0 flex-1'>
+						<Link to={'/profile/' + username}>
+							<p className='text-sm font-medium text-gray-900 hover:underline'>{username}</p>
+						</Link>
+						<p className='text-sm text-gray-500'>{formattedDate}</p>
+					</div>
+				</div>
+				<p className='text-sm text-gray-600 mt-5'>{body}</p>
 			</div>
-
-			<p className='text-muted small mb-4'>
-				<a href='#'>
-					<img className='avatar-tiny' src='https://gravatar.com/avatar/b9408a09298632b5151200f3449434ef?s=128' />
-				</a>
-				Posted by <a href='#'>brad</a> on 2/10/2020
-			</p>
-
-			<div className='body-content'>
-				<p>
-					Lorem ipsum dolor sit <strong>example</strong> post adipisicing elit. Iure ea at esse, tempore qui possimus soluta impedit natus voluptate, sapiente saepe modi est pariatur. Aut voluptatibus
-					aspernatur fugiat asperiores at.
-				</p>
-				<p>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quod asperiores corrupti omnis qui, placeat neque modi, dignissimos, ab exercitationem eligendi culpa explicabo nulla tempora
-					rem? Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure ea at esse, tempore qui possimus soluta impedit natus voluptate, sapiente saepe modi est pariatur. Aut voluptatibus
-					aspernatur fugiat asperiores at.
-				</p>
-			</div>
-		</div>
 		</Page>
 	);
 }
-
-export default ViewSinglePost;

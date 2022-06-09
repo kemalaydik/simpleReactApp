@@ -10,22 +10,13 @@ const faqs = [
 		answer: "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat."
 	},
 	{
-		question: "What's the best thing about Switzerland?",
-		answer: "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat."
+		question: 'How many sides does a square have?',
+		answer: '4 Maybe?'
 	},
 	{
-		question: "What's the best thing about Switzerland?",
-		answer: "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat."
-	},
-	{
-		question: "What's the best thing about Switzerland?",
-		answer: "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat."
-	},
-	{
-		question: "What's the best thing about Switzerland?",
-		answer: "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat."
-	},
-
+		question: 'What is the value of the expression skiResorts?',
+		answer: 'Sun Valley'
+	}
 ];
 
 function classNames(...classes) {
@@ -34,7 +25,7 @@ function classNames(...classes) {
 
 export default function Example() {
 	return (
-		<Page title="FAQ">
+		<Page title='FAQ'>
 			<div className='bg-gray-50 h-full'>
 				<div className='max-w-7xl mx-auto py-12 px-4 sm:py-16 sm:px-6 lg:px-8'>
 					<div className='max-w-3xl mx-auto divide-y-2 divide-gray-200'>
