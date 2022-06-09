@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useState, useReducer, useEffect, useMemo } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useImmerReducer } from 'use-immer';
@@ -9,6 +9,7 @@ import Home from './components/Home';
 import Footer from './components/Footer';
 import About from './components/About';
 import Faq from './components/Faq';
+import Profile from './components/Profile';
 import CreatePost from './components/CreatePost';
 import ViewSinglePost from './components/ViewSinglePost';
 import FlashMessages from './components/FlashMessages';
@@ -60,7 +61,7 @@ function App() {
 		<StateContext.Provider value={state}>
 			<DispatchContext.Provider value={dispatch}>
 				<BrowserRouter>
-					<div className='h-screen flex flex-col justify-between'>
+					<div className='min-h-screen flex flex-col'>
 						<Header />
 						<FlashMessages messages={state.flashMessages} />
 						<Routes>
@@ -69,6 +70,7 @@ function App() {
 							<Route path='/create-post' element={<CreatePost />} />
 							<Route path='/faq' element={<Faq />} />
 							<Route path='/post/:id' element={<ViewSinglePost />} />
+							<Route path='/profile/:id/*' element={<Profile />} />
 						</Routes>
 						<Footer />
 					</div>
