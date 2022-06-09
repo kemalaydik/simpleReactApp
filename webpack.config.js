@@ -29,6 +29,25 @@ module.exports = {
 						presets: ['@babel/preset-react', ['@babel/preset-env', { targets: { node: '12' } }]]
 					}
 				}
+			},
+			{
+				test: /\.css$/i,
+				use: ['style-loader', 'css-loader']
+			},
+			{
+				test: /\.(png|jp(e*)g|svg|gif)$/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							name: 'images/[hash]-[name].[ext]'
+						}
+					}
+				]
+			},
+			{
+				test: /\.svg$/,
+				loader: 'svg-inline-loader'
 			}
 		]
 	}
