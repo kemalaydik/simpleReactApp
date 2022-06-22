@@ -11,7 +11,7 @@ function Home() {
 				<div className='max-w-7xl mx-auto sm:px-6 lg:px-8 lg:py-8'>
 					<div className='relative shadow-xl sm:rounded-2xl sm:overflow-hidden'>
 						<div className='absolute inset-0'>
-							<img className='h-full w-full object-cover' src='https://images.pexels.com/photos/1111368/pexels-photo-1111368.jpeg' alt='People working on laptops' />
+							<img className='h-full w-full object-cover' src='https://images.pexels.com/photos/1111368/pexels-photo-1111368.jpeg' alt='' />
 							<div className='absolute inset-0 bg-gradient-to-r from-purple-800 to-indigo-700 mix-blend-multiply'></div>
 						</div>
 						<div className='relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8'>

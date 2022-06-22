@@ -21,7 +21,7 @@ function ProfilePosts() {
 				request.cancel();
 			};
 		})();
-	}, []);
+	}, [username]);
 
 	if (isLoading) return <Spinner />;
 

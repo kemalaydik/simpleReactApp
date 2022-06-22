@@ -13,6 +13,10 @@ import Profile from './components/Profile';
 import CreatePost from './components/CreatePost';
 import ViewSinglePost from './components/ViewSinglePost';
 import FlashMessages from './components/FlashMessages';
+import EditPost from './components/EditPost';
+import NotFound from './components/NotFound';
+import Search from './components/Search';
+
 import StateContext from './StateContext';
 import DispatchContext from './DispatchContext';
 import Axios from 'axios';
@@ -26,7 +30,8 @@ function App() {
 			token: localStorage.getItem('ReactAppToken'),
 			username: localStorage.getItem('ReactAppUsername'),
 			avatar: localStorage.getItem('ReactAppAvatar')
-		}
+		},
+		isSearchOpen: false
 	};
 	function reducer(stateCopy, action) {
 		switch (action.type) {
@@ -40,6 +45,12 @@ function App() {
 				return;
 			case 'flashMessages':
 				stateCopy.flashMessages.push(action.value);
+				return;
+			case 'openSearch':
+				stateCopy.isSearchOpen = true;
+				return;
+			case 'closeSearch':
+				stateCopy.isSearchOpen = false;
 				return;
 		}
 	}
@@ -64,14 +75,19 @@ function App() {
 					<div className='min-h-screen flex flex-col'>
 						<Header />
 						<FlashMessages messages={state.flashMessages} />
-						<Routes>
-							<Route path='/' element={state.loggedin ? <Home /> : <HomeGuest />} />
-							<Route path='/about-us' element={<About />} />
-							<Route path='/create-post' element={<CreatePost />} />
-							<Route path='/faq' element={<Faq />} />
-							<Route path='/post/:id' element={<ViewSinglePost />} />
-							<Route path='/profile/:id/*' element={<Profile />} />
-						</Routes>
+						<div className='flex-1 self-stretch'>
+							<Routes>
+								<Route path='/' element={state.loggedin ? <Home /> : <HomeGuest />} />
+								<Route path='/about-us' element={<About />} />
+								<Route path='/create-post' element={<CreatePost />} />
+								<Route path='/faq' element={<Faq />} />
+								<Route path='/post/:id' element={<ViewSinglePost />} />
+								<Route path='/post/:id/edit' element={<EditPost />} />
+								<Route path='/profile/:id/*' element={<Profile />} />
+								<Route path='*' element={<NotFound />} />
+							</Routes>
+						</div>
+						{state.isSearchOpen ? <Search /> : ''}
 						<Footer />
 					</div>
 				</BrowserRouter>

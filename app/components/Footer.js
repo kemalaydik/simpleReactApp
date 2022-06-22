@@ -7,9 +7,9 @@ export default function Footer() {
 			<div className='sm:flex sm:items-center sm:justify-between'>
 				<a href='https://github.com/kemalaydik' className='flex items-center mb-4 sm:mb-0'>
 					<img src='../img/Artboard1@2x.png' className='mr-3 h-8' alt='Kemal aydık logo' />
-					<span className='self-center text-2xl font-semibold whitespace-nowrap dark:text-white'>Kemal Aydık</span>
+					<span className='self-center text-2xl font-semibold whitespace-nowrap text-white'>Kemal Aydık</span>
 				</a>
-				<ul className='flex flex-wrap items-center mb-6 text-sm text-gray-500 sm:mb-0 dark:text-gray-400'>
+				<ul className='flex flex-wrap items-center mb-6 text-sm text-gray-500 sm:mb-0 '>
 					<li>
 						<Link to='/' className='mr-4 hover:underline md:mr-6'>
 							Home
