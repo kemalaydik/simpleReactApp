@@ -7,14 +7,15 @@ import Page from './Page';
 import { UserAddIcon, UserRemoveIcon } from '@heroicons/react/outline';
 import ProfilePosts from './ProfilePosts';
 import ProfileFollow from './ProfileFollow';
+import Spinner from './Spinner';
 
 function Profile() {
 	const { id: username } = useParams();
 	const appState = useContext(StateContext);
 	const [state, setState] = useImmer({
-		followLoading: false,
-		startFollowRequestCount: 0,
-		stopFollowRequestCount: 0,
+		followActionLoading: false,
+		startFollowingRequestCount: 0,
+		stopFollowingRequestCount: 0,
 		profileData: {
 			profileUsername: '...',
 			profileAvatar: 'https://gravatar.com/avatar/placeholder?s=128',
@@ -25,73 +26,83 @@ function Profile() {
 
 	useEffect(() => {
 		const request = Axios.CancelToken.source();
-		(async function () {
+		async function fetchData() {
 			try {
-				const response = await Axios.post('/profile/' + username, { token: appState.user.token, cancelToken: request.token });
+				const response = await Axios.post(`/profile/${username}`, { token: appState.user.token }, { cancelToken: request.token });
 				setState(draft => {
 					draft.profileData = response.data;
 				});
-			} catch (error) {
-				console.log(error);
+			} catch (e) {
+				console.log('There was a problem.');
 			}
-			return () => {
-				request.cancel();
-			};
-		})();
+		}
+		fetchData();
+		return () => {
+			request.cancel();
+		};
 	}, [username]);
 
 	useEffect(() => {
-		if (state.startFollowRequestCount) {
+		if (state.startFollowingRequestCount) {
+			setState(draft => {
+				draft.followActionLoading = true;
+			});
+
 			const request = Axios.CancelToken.source();
+
 			(async function () {
 				try {
-					const response = await Axios.post('/addFollow/' + state.profileData.profileUsername, { token: appState.user.token, cancelToken: request.token });
+					const response = await Axios.post(`/addFollow/${state.profileData.profileUsername}`, { token: appState.user.token }, { cancelToken: request.token });
 					setState(draft => {
 						draft.profileData.isFollowing = true;
 						draft.profileData.counts.followerCount++;
-						draft.followLoading = false;
+						draft.followActionLoading = false;
 					});
-				} catch (error) {
-					console.log(error);
+				} catch (e) {
+					console.log(e);
 				}
-				return () => {
-					request.cancel();
-				};
 			})();
+			return () => {
+				request.cancel();
+			};
 		}
-	}, [state.startFollowRequestCount]);
+	}, [state.startFollowingRequestCount]);
 
 	useEffect(() => {
-		if (state.stopFollowRequestCount) {
+		if (state.stopFollowingRequestCount) {
+			setState(draft => {
+				draft.followActionLoading = true;
+			});
+
 			const request = Axios.CancelToken.source();
+
 			(async function () {
 				try {
-					const response = await Axios.post('/removeFollow/' + state.profileData.profileUsername, { token: appState.user.token, cancelToken: request.token });
+					const response = await Axios.post(`/removeFollow/${state.profileData.profileUsername}`, { token: appState.user.token }, { cancelToken: request.token });
 					setState(draft => {
 						draft.profileData.isFollowing = false;
 						draft.profileData.counts.followerCount--;
-						draft.followLoading = false;
+						draft.followActionLoading = false;
 					});
-				} catch (error) {
-					console.log(error);
+				} catch (e) {
+					console.log(e);
 				}
-				return () => {
-					request.cancel();
-				};
 			})();
+			return () => {
+				request.cancel();
+			};
 		}
-	}, [state.stopFollowRequestCount]);
+	}, [state.stopFollowingRequestCount]);
 
 	function startFollowing() {
 		setState(draft => {
-			draft.followLoading = true;
-			draft.startFollowRequestCount++;
+			draft.startFollowingRequestCount++;
 		});
 	}
+
 	function stopFollowing() {
 		setState(draft => {
-			draft.followLoading = true;
-			draft.stopFollowRequestCount++;
+			draft.stopFollowingRequestCount++;
 		});
 	}
 
@@ -116,17 +127,17 @@ function Profile() {
 				</div>
 				<ul className='mt-5 flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200'>
 					<li className='mr-2'>
-						<NavLink to='' end href='#' aria-current='page' className='inline-block p-4 rounded-t-lg hover:bg-gray-50 hover:text-blue-500'>
+						<NavLink to='' end aria-current='page' className='inline-block p-4 rounded-t-lg hover:bg-gray-50 hover:text-blue-500'>
 							Posts: {state.profileData.counts.postCount}
 						</NavLink>
 					</li>
 					<li className='mr-2'>
-						<NavLink to='followers' href='#' className='inline-block p-4 rounded-t-lg hover:text-blue-500 hover:bg-gray-50'>
+						<NavLink to='followers' className='inline-block p-4 rounded-t-lg hover:text-blue-500 hover:bg-gray-50'>
 							Followers: {state.profileData.counts.followerCount}
 						</NavLink>
 					</li>
 					<li className='mr-2'>
-						<NavLink to='following' href='#' className='inline-block p-4 rounded-t-lg hover:text-blue-500 hover:bg-gray-50'>
+						<NavLink to='following' className='inline-block p-4 rounded-t-lg hover:text-blue-500 hover:bg-gray-50'>
 							Following: {state.profileData.counts.followingCount}
 						</NavLink>
 					</li>

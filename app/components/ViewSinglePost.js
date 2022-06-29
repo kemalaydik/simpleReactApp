@@ -72,7 +72,7 @@ export default function ViewSinglePost() {
 	return (
 		<Page title={title}>
 			<ReactTooltip place='top' />
-			<div className='bg-gray-100 px-4 py-5 sm:px-6 w-3/4 mx-auto rounded shadow'>
+			<div className='bg-green-100 px-4 py-5 sm:px-6 w-3/4 mx-auto rounded shadow'>
 				<div className='flex space-x-3'>
 					<Link to={'/profile/' + username}>
 						<img className='h-10 w-10 rounded-full hover:ring-2 ring-blue' src={avatar} alt='avatar' />

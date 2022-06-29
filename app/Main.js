@@ -16,6 +16,7 @@ import FlashMessages from './components/FlashMessages';
 import EditPost from './components/EditPost';
 import NotFound from './components/NotFound';
 import Search from './components/Search';
+import Chat from './components/Chat';
 
 import StateContext from './StateContext';
 import DispatchContext from './DispatchContext';
@@ -31,7 +32,9 @@ function App() {
 			username: localStorage.getItem('ReactAppUsername'),
 			avatar: localStorage.getItem('ReactAppAvatar')
 		},
-		isSearchOpen: false
+		isSearchOpen: false,
+		isChatOpen: false,
+		unreadChatMessages: 0
 	};
 	function reducer(stateCopy, action) {
 		switch (action.type) {
@@ -51,6 +54,15 @@ function App() {
 				return;
 			case 'closeSearch':
 				stateCopy.isSearchOpen = false;
+				return;
+			case 'toggleChat':
+				stateCopy.isChatOpen = !stateCopy.isChatOpen;
+				return;
+			case 'incrementUnreadChatCount':
+				stateCopy.unreadChatMessages++;
+				return;
+			case 'resetUnreadChatCount':
+				stateCopy.unreadChatMessages = 0;
 				return;
 		}
 	}
@@ -88,6 +100,7 @@ function App() {
 							</Routes>
 						</div>
 						{state.isSearchOpen ? <Search /> : ''}
+						<Chat />
 						<Footer />
 					</div>
 				</BrowserRouter>

@@ -17,10 +17,15 @@ function HeaderLoggedin() {
 		appDispatch({ type: 'openSearch' });
 	}
 	return (
-		<div className='flex gap-5 items-stretch justify-end'>
+		<div className='flex gap-5 items-center justify-end'>
 			<ReactTooltip />
 			<SearchIcon data-tip='Search' onClick={openSearch} width='25' fill='white' className='hover:fill-gray-300' role='button' />
-			<ChatIcon data-tip='chat' width='25' fill='white' className='hover:fill-gray-300' role='button' />
+			<div className='relative block'>
+				<ChatIcon onClick={() => appDispatch({ type: 'toggleChat' })} data-tip='chat' width='25' fill='white' className='hover:fill-gray-300' role='button' />
+				<span className='absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full'>
+					{appState.unreadChatMessages}
+				</span>
+			</div>
 			<Link
 				to='/create-post'
 				className='inline-flex items-center px-4 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
