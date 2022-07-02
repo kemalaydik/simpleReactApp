@@ -6,7 +6,7 @@ import { useImmer } from 'use-immer';
 import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
 
-const socket = io('http://localhost:8080');
+const socket = io(process.env.BACKENDURL || 'https://react-socialmedia-1.herokuapp.com');
 function Chat() {
 	const appDispatch = useContext(DispatchContext);
 	const appState = useContext(StateContext);

@@ -1169,6 +1169,10 @@ select {
   display: inline;
 }
 
+.\!inline {
+  display: inline !important;
+}
+
 .flex {
   display: flex;
 }
@@ -2538,6 +2542,11 @@ select {
   background-color: rgb(255 0 0 / var(--tw-bg-opacity));
 }
 
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
 }
@@ -2564,6 +2573,10 @@ select {
 
 .bg-\[url\(\"\.\.\.\"\)\2c url\(\"\.\.\.\"\)\] {
   background-image: url("..."),url("...");
+}
+
+.bg-none {
+  background-image: none;
 }
 
 .from-purple-800 {
