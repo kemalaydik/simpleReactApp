@@ -21,7 +21,7 @@ import Chat from './components/Chat';
 import StateContext from './StateContext';
 import DispatchContext from './DispatchContext';
 import Axios from 'axios';
-Axios.defaults.baseURL = 'http://localhost:8080';
+Axios.defaults.baseURL = 'https://react-socialmedia-1.herokuapp.com';
 
 function App() {
 	const initialState = {
